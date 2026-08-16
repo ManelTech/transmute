@@ -680,8 +680,9 @@ function Settings() {
 
         <div className="space-y-6">
 
-          {/* Appearance */}
+          {/* Appearance and Conversion and Save button share one card . */}
           <section className="bg-surface-light rounded-xl p-6">
+            {/* Appearance */}
             <h2 className="text-lg font-semibold text-text mb-4">{t('settings.appearance')}</h2>
             <div className="flex flex-col gap-4">
               <div className="flex items-center justify-between">
@@ -947,11 +948,9 @@ function Settings() {
                 </div>
               )}
             </div>
-          </section>
 
-          {/* Conversion */}
-          <section className="bg-surface-light rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-text mb-4">{t('settings.conversion')}</h2>
+            {/* Conversion */}
+            <h2 className="text-lg font-semibold text-text mb-4 mt-8">{t('settings.conversion')}</h2>
             <div className="flex flex-col gap-5">
               <div className="flex items-center justify-between">
                 <div>
@@ -1035,18 +1034,18 @@ function Settings() {
               </div>
               )}
             </div>
-          </section>
 
-          {/* Save */}
-          <div className="flex justify-end">
-            <button
-              onClick={handleSave}
-              disabled={saving}
-              className="bg-success hover:bg-success-dark text-white font-semibold py-2 px-8 rounded-lg transition duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {saving ? t('account.saving') : saved ? t('settings.saved') : t('settings.saveChanges')}
-            </button>
-          </div>
+            {/* Save */}
+            <div className="mt-8 flex justify-center">
+              <button
+                onClick={handleSave}
+                disabled={saving}
+                className="bg-success hover:bg-success-dark text-white font-semibold py-2 px-8 rounded-lg transition duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {saving ? t('account.saving') : saved ? t('settings.saved') : t('settings.saveChanges')}
+              </button>
+            </div>
+          </section>
 
           {/* Data Management */}
           <section className="bg-surface-light rounded-xl p-6">
