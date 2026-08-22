@@ -68,6 +68,8 @@ RUN apt-get update && \
     xz-utils \
     unrar-free \
     libreoffice-impress \
+    libreoffice-writer \
+    libreoffice-calc \
     libreoffice-common \
     && rm -rf /var/lib/apt/lists/*
 

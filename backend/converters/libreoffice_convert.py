@@ -1,6 +1,5 @@
 import os
 import subprocess  # nosec B404
-import sys
 import tempfile
 import html as html_module
 from pathlib import Path
@@ -8,6 +7,7 @@ from typing import Optional
 
 from core import validate_safe_path
 
+from . import _libreoffice
 from .converter_interface import ConverterInterface
 
 
@@ -52,12 +52,7 @@ class LibreOfficeConverter(ConverterInterface):
     }
 
     # LibreOffice binary paths by platform
-    _soffice_paths = {
-        'darwin': '/Applications/LibreOffice.app/Contents/MacOS/soffice',
-        'linux': '/usr/bin/soffice',
-        'win32': 'C:\\Program Files\\LibreOffice\\program\\soffice.exe',
-    }
-    soffice_path = _soffice_paths.get(sys.platform, 'soffice')
+    soffice_path = _libreoffice.soffice_path
 
     # Map internal format names to LibreOffice --convert-to format strings.
     _lo_format_map = {
@@ -95,16 +90,7 @@ class LibreOfficeConverter(ConverterInterface):
         Returns:
             True if LibreOffice is installed and accessible, False otherwise.
         """
-        try:
-            subprocess.run(  # nosec B603
-                [cls.soffice_path, '--headless', '--version'],
-                check=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-            )
-            return True
-        except (subprocess.CalledProcessError, FileNotFoundError):
-            return False
+        return _libreoffice.soffice_available()
 
     def can_convert(self) -> bool:
         """
@@ -449,31 +435,4 @@ class LibreOfficeConverter(ConverterInterface):
         Returns:
             Path to the file produced by LibreOffice.
         """
-        input_filename = Path(self.input_file).stem
-        output_path = os.path.join(output_dir, f"{input_filename}.{lo_format}")
-
-        with tempfile.TemporaryDirectory() as user_install_dir:
-            cmd = [
-                self.soffice_path,
-                '--headless',
-                '--norestore',
-                f'-env:UserInstallation=file://{user_install_dir}',
-                '--convert-to', lo_format,
-                '--outdir', output_dir,
-                self.input_file,
-            ]
-
-            subprocess.run(  # nosec B603
-                cmd,
-                capture_output=True,
-                text=True,
-                check=True,
-                timeout=120,
-            )
-
-        if not os.path.exists(output_path):
-            raise RuntimeError(
-                f"LibreOffice did not produce the expected file: {output_path}"
-            )
-
-        return output_path
+        return _libreoffice.run_soffice(self.input_file, output_dir, lo_format)
