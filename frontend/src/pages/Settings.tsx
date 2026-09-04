@@ -1036,7 +1036,7 @@ function Settings() {
             </div>
 
             {/* Save */}
-            <div className="mt-8 flex justify-center">
+            <div className="mt-8 flex justify-end">
               <button
                 onClick={handleSave}
                 disabled={saving}
