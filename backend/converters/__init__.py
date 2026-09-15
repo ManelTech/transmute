@@ -8,6 +8,7 @@ from .pdf2docx_convert import PDF2DOCXConverter
 from .pysubs2_convert import PySubs2Converter
 from .fonttools_convert import FonttoolsConverter
 from .libreoffice_convert import LibreOfficeConverter
+from .iwork_convert import IWorkConverter
 from .email_convert import EmailConverter
 from .converter_interface import ConverterInterface
 from .archive_convert import ArchiveConverter
@@ -33,6 +34,7 @@ __all__ = [
     "PySubs2Converter", 
     "FonttoolsConverter", 
     "LibreOfficeConverter", 
+    "IWorkConverter",
     "EmailConverter", 
     "ArchiveConverter", 
     "CalibreConverter",

@@ -112,7 +112,7 @@ function Auth() {
               </div>
 
               {error && (
-                <div className="mb-5 rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-sm text-primary-light">
+                <div className="mb-5 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-500">
                   {error}
                 </div>
               )}
@@ -226,7 +226,7 @@ function Auth() {
               </div>
 
               {error && (
-                <div className="mt-5 rounded-xl border border-primary/40 bg-primary/10 px-4 py-3 text-sm text-primary-light">
+                <div className="mt-5 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-500">
                   {error}
                 </div>
               )}
